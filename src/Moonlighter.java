@@ -83,15 +83,17 @@ public class Moonlighter extends Personage {
         }
         try {
             MessangeToInsects msg = new MessangeToInsects("Ах ты, зверюшка чертова!", "выругался", p, this);
-            msg.sayMassange();
+            msg.sayMessange();
             MessangeToInsects msg2 = new MessangeToInsects("Мало тебе двух миллионов? Три дам, чтоб тебе провалиться на месте!", "сказал", p, this);
-            msg2.sayMassange();
+            msg2.sayMessange();
 
             if (p.skillSwear < this.skillSwear) {
                 battle(p);
             }
         } catch (unchException e){
             System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(this.name + " немой.");
         }
     }
 

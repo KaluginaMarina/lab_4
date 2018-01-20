@@ -1,11 +1,10 @@
-
-import javax.xml.bind.SchemaOutputResolver;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+
 
 
 public class Main {
-    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, FileNotFoundException {
 
         System.out.println("\"Незнайка на Луне\"");
         Reader reader = new Reader("Читатель");
@@ -43,24 +42,5 @@ public class Main {
         julio.compare(readerJulio);                                           // Коротышка похож на Жулио
         migo.compare(readerMigo);                                          // Коротышка похож на Миго
 
-        class PrCl{
-            private int a = 0;
-            public PrCl(int a){
-                this.a = a;
-            }
-        }
-
-        PrCl name = new PrCl(1);
-        Class myClass = PrCl.class;
-
-        Field privateField = PrCl.class.getDeclaredField("a");
-
-        privateField.setAccessible(true);
-        Object o = privateField.get(name);
-        System.out.println(o);
-        privateField.set(name, 2);
-        o = privateField.get(name);
-        privateField.setAccessible(false);
-        System.out.println(o);
     }
 }

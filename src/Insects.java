@@ -1,5 +1,5 @@
 public interface Insects {
-    int skillSwear = 0;
+    int skillSwear = 110;
     /**
      *    Метод, который кидает клопа за шиворот
      *    @Personage p - противник
