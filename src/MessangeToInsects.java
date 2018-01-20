@@ -1,3 +1,10 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class MessangeToInsects {
     public String tone;
     public String msg;
@@ -22,24 +29,36 @@ public class MessangeToInsects {
      * Метод в котором персонаж ругается на насекомого.
      * Причем, если skillSwear у насекомого больше, чем у персонажа, то он отвечает.
      */
-    void sayMassange(){
+    void sayMessange() throws IOException {
         System.out.println("\"" + msg + "\"" + " - " + tone + " " + fromWhom.name + ".");
 
         if (toWhom.skillSwear >= fromWhom.skillSwear){
 
             class Answer {
-                private String ans[] = {"Cам такой!", "Не кричи на меня!", "Ой все!", "Бла-бла-бла", "Мяу"};
-                private String tone[] = {"выругася", "крикнул", "обиделся", "проворчал", "чертыхнулся"};
+                private ArrayList<String> tone = new ArrayList<>();
+                private ArrayList<String> ans = new ArrayList<>();
 
-                private Answer(String... ans){
-                    this.ans = ans;
+                Answer() throws IOException {
+                    FileReader answer = new FileReader("D:\\прога\\lab4\\lab3\\src\\materials\\answer.txt");
+                    FileReader toneFile = new FileReader("D:\\прога\\lab4\\lab3\\src\\materials\\tone.txt");
+                    Scanner scanAns = new Scanner(answer);
+                    Scanner scanTone = new Scanner(toneFile);
+                    while(scanAns.hasNextLine()) {
+                        ans.add(scanAns.nextLine());
+                    }
+                    while (scanTone.hasNextLine()) {
+                        tone.add(scanTone.nextLine());
+                    }
+
+                    answer.close();
+                    toneFile.close();
                 }
 
                 private void sayAnswer() throws AngryInsectException {
-                    if (ans.length == 0 || tone.length == 0){
+                    if (ans.size() == 0 || tone.size() == 0){
                         throw new AngryInsectException(toWhom + " топнул ногой, потому что не нашел, что ответить.");
                     }
-                    System.out.println("\"" + ans[(int)(Math.random()*100 % ans.length)] + "\"" + " - " + tone[(int)(Math.random()*100 % tone.length)] + " " + toWhom + ".");
+                    System.out.println("\"" + ans.get((int)(Math.random()*100 % ans.size())) + "\"" + " - " + tone.get((int)(Math.random()*100 % tone.size())) + " " + toWhom + ".");
                 }
             }
 
@@ -59,4 +78,3 @@ public class MessangeToInsects {
         }
     }
 }
-
